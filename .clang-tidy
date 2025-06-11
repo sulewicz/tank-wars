@@ -1,0 +1,34 @@
+Checks: 'readability-identifier-naming'
+WarningsAsErrors: '*'
+CheckOptions:
+  # Variables (global, local, static) must be lower_case
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+
+  # Function arguments must be lower_case
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+
+  # Struct/class fields must be lower_case
+  - key: readability-identifier-naming.MemberCase
+    value: lower_case
+
+  # Functions themselves can be lower_case (your choice)
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+
+  # Struct names themselves should be CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: lower_case
+
+  # Typedefs (e.g., object_t) can stay as lower_case (C style)
+  - key: readability-identifier-naming.TypeAliasCase
+    value: lower_case
+
+  # Enum names CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: lower_case
+
+  # Enum constants UPPER_CASE
+  - key: readability-identifier-naming.EnumeratorCase
+    value: UPPER_CASE
