@@ -76,6 +76,10 @@ build/%.o: src/%.cpp
 	@$(MKDIR_BUILD)
 	$(CXX) -c $< -o $@ $(CFLAGS)
 
+.PHONY: site
+site:
+	w4 bundle build/cart.wasm --title "Tank Wars" --html site/index.html --html-template template.html
+
 .PHONY: clean
 clean:
 	$(RMDIR) build

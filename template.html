@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  {{#html.metadata}}
+  <meta name="{{name}}" content="{{content}}">
+  {{/html.metadata}}
+  {{#html.description}}
+  <meta name="description" content="{{html.description}}">
+  {{/html.description}}
+  {{#html.iconUrl}}
+  <link rel="shortcut icon" href="{{html.iconUrl}}">
+  {{/html.iconUrl}}
+  {{#html.diskPrefix}}
+  <script id="wasm4-disk-prefix" type="text/plain">{{{html.diskPrefix}}}</script>
+  {{/html.diskPrefix}}
+  <title>{{html.title}}</title>
+  <style>{{{html.wasm4Css}}}</style>
+</head>
+<body>
+  <script id="wasm4-cart-json" type="application/json">{{{html.wasmCartJson}}}</script>
+  <script>{{{html.wasm4js}}}</script>
+<wasm4-app></wasm4-app>
+  <a href="https://github.com/sulewicz/tank-wars" target="_blank" id="github-btn">
+      <img src="github.png" alt="GitHub" />
+  </a>
+
+  <style>
+      #github-btn {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 1000;
+          opacity: 0.8;
+          transition: opacity 0.3s ease;
+      }
+
+      #github-btn:hover {
+          opacity: 1;
+      }
+
+      #github-btn img {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+  </style>
+</body>
+</html>
