@@ -2,6 +2,8 @@
 
 A multiplayer 3D tank battle game written in C for the [WASM-4](https://wasm4.org) fantasy console. Features real-time 3D rendering and netplay support for up to 4 players.
 
+You can give it a try here: [Tank Wars](https://tank.coderoller.org).
+
 ## Game Controls
 
 ### Menu Navigation
