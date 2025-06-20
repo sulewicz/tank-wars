@@ -27,6 +27,7 @@ uint16_t score[PLAYER_COUNT] = {0, 0, 0, 0};
 size_t object_count = 0;
 float shot_time[4] = {-SHOT_DELAY, -SHOT_DELAY, -SHOT_DELAY, -SHOT_DELAY};
 uint32_t tick = 0;
+uint32_t mountain_seed = 0;
 
 void transformation_debug(object_t *obj, size_t obj_idx __attribute__((unused)),
                           float time) {
@@ -37,6 +38,7 @@ void transformation_debug(object_t *obj, size_t obj_idx __attribute__((unused)),
 
 void init_game() {
   object_count = 0;
+  mountain_seed = tick * 1234567891u; // Generate seed based on current tick
   for (int i = 0; i < PLAYER_COUNT; i++) {
     score[i] = 0;
     shot_time[i] = -SHOT_DELAY;
@@ -179,6 +181,25 @@ void update_game() {
   // Rendering.
   *DRAW_COLORS = 2;
   rect(0, 80, 160, 80);
+
+  // Draw mountain silhouette
+  *DRAW_COLORS = 3;
+  for (int x = 0; x < 160; x++) {
+    float relative_angle = (x - 80) * (M_PI / 2) / 80;
+    float world_angle = relative_angle - cameras[player_id].yaw / 4;
+
+    // Generate mountain height using multiple sine waves with random offsets
+    float seed_offset1 = (mountain_seed & 0xFF) / 255.0f * M_PI * 2;
+    float seed_offset2 = ((mountain_seed >> 8) & 0xFF) / 255.0f * M_PI * 2;
+    float seed_offset3 = ((mountain_seed >> 16) & 0xFF) / 255.0f * M_PI * 2;
+    float height = 8 + 6 * sinf(world_angle * 3 + seed_offset1) +
+                   4 * sinf(world_angle * 7 + seed_offset2) +
+                   2 * sinf(world_angle * 13 + seed_offset3);
+    if (height < 1)
+      height = 1;
+
+    vline(x, 80 - (int)height, (int)height);
+  }
   matrix44f_t camera_to_world = build_camera_matrix(&cameras[player_id]);
   matrix44f_t world_to_camera = inverse_matrix44f(&camera_to_world);
 
@@ -201,7 +222,7 @@ void update_game() {
   render_buffer(polygon_buffer, buf_idx);
 
   // UI.
-  *DRAW_COLORS = 0x32;
+  *DRAW_COLORS = 0x42;
   rect(78, 76, 4, 4);
 
   *DRAW_COLORS = 3;
